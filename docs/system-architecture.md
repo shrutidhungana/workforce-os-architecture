@@ -144,7 +144,7 @@ Within the monolith, a module calls another module's service layer, never its re
 
 ## Architecture Diagrams
 
-One diagram cannot stay readable as the system grows, so this follows a context → container split (matching `docs/diagrams/` in the repository structure, CLAUDE.md §29). Context shows *what talks to what*; container shows *what each piece is made of*.
+One diagram cannot stay readable as the system grows, so this follows a context → container split (matching `docs/diagrams/` in the repository structure). Context shows *what talks to what*; container shows *what each piece is made of*.
 
 ### Context Diagram
 
@@ -207,9 +207,9 @@ graph TB
 Notes on what's new here versus the context diagram:
 
 - **Redis** does double duty: an application cache and the backing store for BullMQ job queues. It is not shown at context level because it's an implementation detail of the API, not something a client is aware of.
-- **Background Worker** is still part of the same deployable monolith at this stage — it's a separate process, not a separate service. This is exactly the boundary that becomes `notification-service` in Stage 2 (CLAUDE.md §6): today it's an in-process queue consumer, later it becomes a network call to another service.
+- **Background Worker** is still part of the same deployable monolith at this stage — it's a separate process, not a separate service. This is exactly the boundary that becomes `notification-service` in Stage 2: today it's an in-process queue consumer, later it becomes a network call to another service.
 - **PostgreSQL + pgvector** is called out explicitly here because the container diagram is where "where do embeddings live" needs to be answerable — at context level, "PostgreSQL" was enough.
-- Internal module boundaries (auth, tenants, leave, etc.) are named inside the API box but not expanded into their own boxes — that level of detail belongs in the Main Modules section above, not in a diagram; a box per module here would violate the "don't create one giant unreadable diagram" rule (CLAUDE.md §31).
+- Internal module boundaries (auth, tenants, leave, etc.) are named inside the API box but not expanded into their own boxes — that level of detail belongs in the Main Modules section above, not in a diagram; a box per module here would violate the "don't create one giant unreadable diagram" rule.
 
-This container diagram will need a companion **deployment diagram** once AWS infrastructure is designed (load balancer, VPC, RDS, replica counts) — that's explicitly deferred until this document is settled (CLAUDE.md §37).
+This container diagram will need a companion **deployment diagram** once AWS infrastructure is designed (load balancer, VPC, RDS, replica counts) — that's explicitly deferred until this document is settled.
 
