@@ -1,0 +1,4 @@
+# Copy to terraform.tfvars and fill in real values.
+# terraform.tfvars is gitignored - never commit real credentials here.
+db_username = "changeme"
+db_password = "changeme"
